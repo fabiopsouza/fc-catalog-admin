@@ -1,13 +1,13 @@
 package com.github.fullcycle.catalog.admin.domain.category;
 
 import com.github.fullcycle.catalog.admin.domain.AggregateRoot;
+import com.github.fullcycle.catalog.admin.domain.utils.InstantUtils;
 import com.github.fullcycle.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
-import java.time.chrono.IsoChronology;
-import java.util.UUID;
+import java.util.Objects;
 
-public class Category extends AggregateRoot<CategoryID> {
+public class Category extends AggregateRoot<CategoryID> implements Cloneable {
     private String name;
     private String description;
     private boolean active;
@@ -16,26 +16,26 @@ public class Category extends AggregateRoot<CategoryID> {
     private Instant deletedAt;
 
     private Category(
-            final CategoryID anID,
-            final String anName,
-            final String anDescription,
+            final CategoryID anId,
+            final String aName,
+            final String aDescription,
             final boolean isActive,
-            final Instant aCreatedAt,
-            final Instant aUpdatedAt,
-            final Instant aDeletedAt
+            final Instant aCreationDate,
+            final Instant aUpdateDate,
+            final Instant aDeleteDate
     ) {
-        super(anID);
-        this.name = anName;
-        this.description = anDescription;
+        super(anId);
+        this.name = aName;
+        this.description = aDescription;
         this.active = isActive;
-        this.createdAt = aCreatedAt;
-        this.updatedAt = aUpdatedAt;
-        this.deletedAt = aDeletedAt;
+        this.createdAt = Objects.requireNonNull(aCreationDate, "'createdAt' should not be null");
+        this.updatedAt = Objects.requireNonNull(aUpdateDate, "'updatedAt' should not be null");
+        this.deletedAt = aDeleteDate;
     }
 
     public static Category newCategory(final String aName, final String aDescription, final boolean isActive) {
         final var id = CategoryID.unique();
-        final var now = Instant.now();
+        final var now = InstantUtils.now();
         final var deletedAt = isActive ? null : now;
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
     }
@@ -72,25 +72,26 @@ public class Category extends AggregateRoot<CategoryID> {
         );
     }
 
+    @Override
+    public void validate(final ValidationHandler handler) {
+        new CategoryValidator(this, handler).validate();
+    }
+
     public Category activate() {
         this.deletedAt = null;
         this.active = true;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
     }
 
     public Category deactivate() {
         if (getDeletedAt() == null) {
-            this.deletedAt = Instant.now();
+            this.deletedAt = InstantUtils.now();
         }
 
         this.active = false;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
         return this;
-    }
-
-    public void validate(ValidationHandler handler) {
-        new CategoryValidator(this, handler).validate();
     }
 
     public Category update(
@@ -103,7 +104,6 @@ public class Category extends AggregateRoot<CategoryID> {
         } else {
             deactivate();
         }
-
         this.name = aName;
         this.description = aDescription;
         this.updatedAt = Instant.now();
@@ -136,5 +136,14 @@ public class Category extends AggregateRoot<CategoryID> {
 
     public Instant getDeletedAt() {
         return deletedAt;
+    }
+
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
