@@ -6,6 +6,9 @@ import com.github.fullcycle.catalog.admin.domain.validation.Validator;
 
 public class CategoryValidator extends Validator {
 
+    private final int MIN_NAME_LENGTH = 3;
+    private final int MAX_NAME_LENGTH = 255;
+
     private final Category category;
 
     public CategoryValidator(final Category aCategory, final ValidationHandler aHandler) {
@@ -32,7 +35,7 @@ public class CategoryValidator extends Validator {
         }
 
         final int length = name.trim().length();
-        if (length < 3 || length > 255) {
+        if (length < MIN_NAME_LENGTH || length > MAX_NAME_LENGTH) {
             this.validationHandler().append(new Error("'name' must be between 3 and 255 characters"));
         }
     }

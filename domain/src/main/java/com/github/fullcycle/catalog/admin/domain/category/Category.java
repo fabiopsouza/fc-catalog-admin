@@ -4,6 +4,7 @@ import com.github.fullcycle.catalog.admin.domain.AggregateRoot;
 import com.github.fullcycle.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
+import java.time.chrono.IsoChronology;
 import java.util.UUID;
 
 public class Category extends AggregateRoot<CategoryID> {
@@ -39,9 +40,74 @@ public class Category extends AggregateRoot<CategoryID> {
         return new Category(id, aName, aDescription, isActive, now, now, deletedAt);
     }
 
-    @Override
+    public static Category with(
+            final CategoryID anId,
+            final String name,
+            final String description,
+            final boolean active,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
+        return new Category(
+                anId,
+                name,
+                description,
+                active,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
+    }
+
+    public static Category with(final Category aCategory) {
+        return with(
+                aCategory.getId(),
+                aCategory.name,
+                aCategory.description,
+                aCategory.isActive(),
+                aCategory.createdAt,
+                aCategory.updatedAt,
+                aCategory.deletedAt
+        );
+    }
+
+    public Category activate() {
+        this.deletedAt = null;
+        this.active = true;
+        this.updatedAt = Instant.now();
+        return this;
+    }
+
+    public Category deactivate() {
+        if (getDeletedAt() == null) {
+            this.deletedAt = Instant.now();
+        }
+
+        this.active = false;
+        this.updatedAt = Instant.now();
+        return this;
+    }
+
     public void validate(ValidationHandler handler) {
         new CategoryValidator(this, handler).validate();
+    }
+
+    public Category update(
+            final String aName,
+            final String aDescription,
+            final boolean isActive
+    ) {
+        if (isActive) {
+            activate();
+        } else {
+            deactivate();
+        }
+
+        this.name = aName;
+        this.description = aDescription;
+        this.updatedAt = Instant.now();
+        return this;
     }
 
     public CategoryID getId() {
