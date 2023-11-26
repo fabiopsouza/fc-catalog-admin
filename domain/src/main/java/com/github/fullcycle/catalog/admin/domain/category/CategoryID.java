@@ -1,6 +1,7 @@
 package com.github.fullcycle.catalog.admin.domain.category;
 
 import com.github.fullcycle.catalog.admin.domain.Identifier;
+import com.github.fullcycle.catalog.admin.domain.utils.IdUtils;
 
 import java.security.PublicKey;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class CategoryID extends Identifier {
     }
 
     public static CategoryID unique() {
-        return CategoryID.from(UUID.randomUUID());
+        return CategoryID.from(IdUtils.uuid());
     }
 
     public static CategoryID from(final String anID) {
