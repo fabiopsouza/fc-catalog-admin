@@ -3,11 +3,12 @@ package com.github.fullcycle.catalog.admin.domain.validation;
 import java.util.List;
 
 public interface ValidationHandler {
+
     ValidationHandler append(Error anError);
 
     ValidationHandler append(ValidationHandler anHandler);
 
-    ValidationHandler validate(Validation anValidation);
+    <T> T validate(Validation<T> aValidation);
 
     List<Error> getErrors();
 
@@ -23,7 +24,7 @@ public interface ValidationHandler {
         }
     }
 
-    public interface Validation {
-        void validate();
+    interface Validation<T> {
+        T validate();
     }
 }

@@ -3,13 +3,12 @@ package com.github.fullcycle.catalog.admin.application.category.create;
 import com.github.fullcycle.catalog.admin.domain.category.Category;
 import com.github.fullcycle.catalog.admin.domain.category.CategoryGateway;
 import com.github.fullcycle.catalog.admin.domain.validation.handler.Notification;
-import com.github.fullcycle.catalog.admin.domain.validation.handler.ThrowsValidationHandler;
-import io.vavr.API;
 import io.vavr.control.Either;
 
 import java.util.Objects;
 
-import static io.vavr.API.*;
+import static io.vavr.API.Left;
+import static io.vavr.API.Try;
 
 public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase {
 
