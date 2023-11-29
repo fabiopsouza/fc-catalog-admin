@@ -1,5 +1,6 @@
 package com.github.fullcycle.catalog.admin;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -16,11 +17,16 @@ import java.util.Collection;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@DataJpaTest
 @ActiveProfiles("test-integration")
-@ComponentScan(includeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".[MySQLGateway]")
-})
-@ExtendWith(CleanUpExtension.class)
+@ComponentScan(
+        basePackages = "com.github.fullcycle.catalog.admin",
+        useDefaultFilters = false,
+        includeFilters = {
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*MySQLGateway")
+        }
+)
+@DataJpaTest
+@ExtendWith(MySQLCleanUpExtension.class)
+@Tag("integrationTest")
 public @interface MySQLGatewayTest {
 }
