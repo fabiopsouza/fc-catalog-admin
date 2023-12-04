@@ -2,14 +2,21 @@ package com.github.fullcycle.catalog.admin.e2e;
 
 import com.github.fullcycle.catalog.admin.domain.Identifier;
 import com.github.fullcycle.catalog.admin.domain.category.CategoryID;
+import com.github.fullcycle.catalog.admin.domain.genre.GenreID;
 import com.github.fullcycle.catalog.admin.infrastructure.category.models.CategoryResponse;
 import com.github.fullcycle.catalog.admin.infrastructure.category.models.CreateCategoryRequest;
 import com.github.fullcycle.catalog.admin.infrastructure.category.models.UpdateCategoryRequest;
 import com.github.fullcycle.catalog.admin.infrastructure.configuration.json.Json;
+import com.github.fullcycle.catalog.admin.infrastructure.genre.models.CreateGenreRequest;
+import com.github.fullcycle.catalog.admin.infrastructure.genre.models.GenreResponse;
+import com.github.fullcycle.catalog.admin.infrastructure.genre.models.UpdateGenreRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.List;
+import java.util.function.Function;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,8 +60,48 @@ public interface MockDsl {
     }
 
     /**
+     * Genre
+     */
+
+    default ResultActions deleteAGenre(final GenreID anId) throws Exception {
+        return this.delete("/genres/", anId);
+    }
+
+    default GenreID givenAGenre(final String aName, final boolean isActive, final List<CategoryID> categories) throws Exception {
+        final var aRequestBody = new CreateGenreRequest(aName, mapTo(categories, CategoryID::getValue), isActive);
+        final var actualId = this.given("/genres", aRequestBody);
+        return GenreID.from(actualId);
+    }
+
+    default ResultActions listGenres(final int page, final int perPage) throws Exception {
+        return listGenres(page, perPage, "", "", "");
+    }
+
+    default ResultActions listGenres(final int page, final int perPage, final String search) throws Exception {
+        return listGenres(page, perPage, search, "", "");
+    }
+
+    default ResultActions listGenres(final int page, final int perPage, final String search, final String sort, final String direction) throws Exception {
+        return this.list("/genres", page, perPage, search, sort, direction);
+    }
+
+    default GenreResponse retrieveAGenre(final GenreID anId) throws Exception {
+        return this.retrieve("/genres/", anId, GenreResponse.class);
+    }
+
+    default ResultActions updateAGenre(final GenreID anId, final UpdateGenreRequest aRequest) throws Exception {
+        return this.update("/genres/", anId, aRequest);
+    }
+
+    /**
      * Private Methods
      */
+
+    default <A, D> List<D> mapTo(final List<A> actual, final Function<A, D> mapper) {
+        return actual.stream()
+                .map(mapper)
+                .toList();
+    }
 
     private String given(final String url, final Object body) throws Exception {
         final var aRequest = post(url)
