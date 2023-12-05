@@ -1,12 +1,12 @@
 package com.github.fullcycle.catalog.admin.application.castmember.update;
 
-import com.fullcycle.admin.catalogo.domain.Identifier;
-import com.fullcycle.admin.catalogo.domain.castmember.CastMember;
-import com.fullcycle.admin.catalogo.domain.castmember.CastMemberGateway;
-import com.fullcycle.admin.catalogo.domain.castmember.CastMemberID;
-import com.fullcycle.admin.catalogo.domain.exceptions.NotFoundException;
-import com.fullcycle.admin.catalogo.domain.exceptions.NotificationException;
-import com.fullcycle.admin.catalogo.domain.validation.handler.Notification;
+import com.github.fullcycle.catalog.admin.domain.Identifier;
+import com.github.fullcycle.catalog.admin.domain.castmember.CastMember;
+import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberGateway;
+import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberID;
+import com.github.fullcycle.catalog.admin.domain.exceptions.NotFoundException;
+import com.github.fullcycle.catalog.admin.domain.exceptions.NotificationException;
+import com.github.fullcycle.catalog.admin.domain.validation.handler.Notification;
 
 import java.util.Objects;
 import java.util.function.Supplier;

@@ -31,6 +31,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":application"))
 
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+
     implementation 'io.vavr:vavr:0.10.4'
 
     implementation('mysql:mysql-connector-java')

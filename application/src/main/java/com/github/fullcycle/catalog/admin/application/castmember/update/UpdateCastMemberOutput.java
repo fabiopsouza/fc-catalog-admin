@@ -1,7 +1,7 @@
 package com.github.fullcycle.catalog.admin.application.castmember.update;
 
-import com.fullcycle.admin.catalogo.domain.castmember.CastMember;
-import com.fullcycle.admin.catalogo.domain.castmember.CastMemberID;
+import com.github.fullcycle.catalog.admin.domain.castmember.CastMember;
+import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberID;
 
 public record UpdateCastMemberOutput(String id) {
 
