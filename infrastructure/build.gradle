@@ -31,7 +31,10 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":application"))
 
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    implementation('com.google.cloud:google-cloud-storage:2.17.1')
+    implementation('com.google.guava:guava:31.1-jre')
+
+    testImplementation(project(path: ':domain', configuration: 'testClasses'))
 
     implementation 'io.vavr:vavr:0.10.4'
 
@@ -43,15 +46,16 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web') {
         exclude module: 'spring-boot-starter-tomcat'
     }
-
     implementation('org.springframework.boot:spring-boot-starter-undertow')
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-amqp')
 
     implementation('com.fasterxml.jackson.module:jackson-module-afterburner')
 
     testImplementation('org.flywaydb:flyway-core')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.amqp:spring-rabbit-test:2.4.8')
 
     testImplementation('org.testcontainers:testcontainers:1.17.6')
     testImplementation('org.testcontainers:mysql:1.17.6')

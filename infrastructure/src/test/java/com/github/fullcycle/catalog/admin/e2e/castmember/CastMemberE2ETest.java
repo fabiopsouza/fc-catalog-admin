@@ -1,7 +1,7 @@
 package com.github.fullcycle.catalog.admin.e2e.castmember;
 
 import com.github.fullcycle.catalog.admin.E2ETest;
-import com.github.fullcycle.catalog.admin.Fixture;
+import com.github.fullcycle.catalog.admin.domain.Fixture;
 import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberID;
 import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberType;
 import com.github.fullcycle.catalog.admin.e2e.MockDsl;

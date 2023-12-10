@@ -1,6 +1,6 @@
 package com.github.fullcycle.catalog.admin.application.castmember.create;
 
-import com.github.fullcycle.catalog.admin.application.Fixture;
+import com.github.fullcycle.catalog.admin.domain.Fixture;
 import com.github.fullcycle.catalog.admin.application.UseCaseTest;
 import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberGateway;
 import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberType;

@@ -1,6 +1,6 @@
 package com.github.fullcycle.catalog.admin.application.castmember.retrieve.list;
 
-import com.github.fullcycle.catalog.admin.application.Fixture;
+import com.github.fullcycle.catalog.admin.domain.Fixture;
 import com.github.fullcycle.catalog.admin.application.UseCaseTest;
 import com.github.fullcycle.catalog.admin.domain.castmember.CastMember;
 import com.github.fullcycle.catalog.admin.domain.castmember.CastMemberGateway;
