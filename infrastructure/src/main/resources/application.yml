@@ -17,13 +17,18 @@ google:
     project-id: ${GOOGLE_CLOUD_PROJECT}
     storage:
       catalogo-videos:
-        bucket: fc3_videos
-        connect-timeout: 250
+        bucket: fc_catalog_admin
+        connect-timeout: 1000
         read-timeout: 5000
         retry-delay: 50
         retry-max-delay: 50
         retry-max-attempts: 2
         retry-multiplier: 1.0
+
+logging:
+  level:
+    ROOT: INFO
+    com.github.fullcycle.catalog.admin: DEBUG
 
 server:
   port: 8080
