@@ -1,6 +1,4 @@
 amqp:
-  admin:
-    auto-create: true
   host: localhost
   port: 5672
   username: adm_videos
@@ -15,3 +13,8 @@ mysql:
   password: 123456
   schema: adm_videos
   url: localhost:${mysql.port}
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
