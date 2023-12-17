@@ -1,6 +1,21 @@
 version: '3.7'
 
 services:
+  app:
+    container_name: adm_videos_app
+    #    image: deploydesexta/fc3-admin-catalogo-de-videos-java:modulos_29_ci-cd-2
+    build: .
+    profiles: ["app"]
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - rabbit
+    networks:
+      - adm_videos_network
 
   mysql:
     container_name: adm_videos_mysql
@@ -12,9 +27,9 @@ services:
     security_opt:
       - seccomp:unconfined
     ports:
-      - 3307:3306
+      - 3306:3307
     networks:
-      - adm_videos_services
+      - adm_videos_network
 
   rabbit:
     container_name: adm_videos_rabbitmq
@@ -28,7 +43,7 @@ services:
       - 15672:15672
       - 5672:5672
     networks:
-      - adm_videos_services
+      - adm_videos_network
 
 networks:
-  adm_videos_services:
+  adm_videos_network:
