@@ -140,10 +140,6 @@ public interface MockDsl {
         return this.update("/genres/", anId, aRequest);
     }
 
-    /**
-     * Private Methods
-     */
-
     default <A, D> List<D> mapTo(final List<A> actual, final Function<A, D> mapper) {
         return actual.stream()
                 .map(mapper)
