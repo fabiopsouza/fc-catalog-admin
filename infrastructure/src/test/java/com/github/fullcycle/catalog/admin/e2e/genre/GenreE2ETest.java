@@ -1,5 +1,6 @@
 package com.github.fullcycle.catalog.admin.e2e.genre;
 
+import com.github.fullcycle.catalog.admin.ApiTest;
 import com.github.fullcycle.catalog.admin.E2ETest;
 import com.github.fullcycle.catalog.admin.domain.category.CategoryID;
 import com.github.fullcycle.catalog.admin.domain.genre.GenreID;
@@ -212,6 +213,7 @@ public class GenreE2ETest implements MockDsl {
         Assertions.assertEquals(0, genreRepository.count());
 
         final var aRequest = get("/genres/123")
+                .with(ApiTest.ADMIN_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 

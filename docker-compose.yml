@@ -3,8 +3,8 @@ version: '3.7'
 services:
   app:
     container_name: adm_videos_app
-    #    image: deploydesexta/fc3-admin-catalogo-de-videos-java:modulos_29_ci-cd-2
-    build: .
+    image: fabsouza/fc-catalog-admin:main-3
+#    build: .
     profiles: ["app"]
     restart: unless-stopped
     env_file:
@@ -27,7 +27,7 @@ services:
     security_opt:
       - seccomp:unconfined
     ports:
-      - 3306:3307
+      - 3307:3306
     networks:
       - adm_videos_network
 
@@ -42,6 +42,22 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+    networks:
+      - adm_videos_network
+
+  keycloak:
+    container_name: adm_videos_keycloak
+    image: quay.io/keycloak/keycloak:20.0.3
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - 8443:8080
+    command:
+      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
+    #      - start-dev --hostname-url=http://keycloak:8080 # Utilizar esse comando quando a aplicação estiver dentro do Docker
+#    volumes:
+#      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
       - adm_videos_network
 

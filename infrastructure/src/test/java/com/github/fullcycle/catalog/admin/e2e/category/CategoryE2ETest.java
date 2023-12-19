@@ -1,5 +1,6 @@
 package com.github.fullcycle.catalog.admin.e2e.category;
 
+import com.github.fullcycle.catalog.admin.ApiTest;
 import com.github.fullcycle.catalog.admin.E2ETest;
 import com.github.fullcycle.catalog.admin.domain.category.CategoryID;
 import com.github.fullcycle.catalog.admin.e2e.MockDsl;
@@ -181,6 +182,7 @@ public class CategoryE2ETest implements MockDsl {
         Assertions.assertEquals(0, categoryRepository.count());
 
         final var aRequest = get("/categories/123")
+                .with(ApiTest.ADMIN_JWT)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
