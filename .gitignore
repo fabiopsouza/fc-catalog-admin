@@ -28,6 +28,7 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 .env.local
+.docker
 sandbox/.docker
 
 ### NetBeans ###
