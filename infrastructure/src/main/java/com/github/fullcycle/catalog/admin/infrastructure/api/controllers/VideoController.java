@@ -139,7 +139,7 @@ public class VideoController implements VideoAPI {
                 payload.yearLaunched(),
                 payload.duration(),
                 payload.opened(),
-                payload.published(),
+                payload.published() != null ? payload.published() : true,
                 payload.rating(),
                 payload.categories(),
                 payload.genres(),

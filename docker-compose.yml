@@ -3,8 +3,8 @@ version: '3.7'
 services:
   app:
     container_name: adm_videos_app
-    image: fabsouza/fc-catalog-admin:main-3
-#    build: .
+#    image: fabsouza/fc-catalog-admin:main-3
+    build: .
     profiles: ["app"]
     restart: unless-stopped
     env_file:
@@ -56,10 +56,10 @@ services:
     ports:
       - 8443:8080
     command:
-#      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
-          - start-dev --hostname-url=http://keycloak:8080 # Utilizar esse comando quando a aplicação estiver dentro do Docker
-#    volumes:
-#      - ../.docker/keycloak:/opt/keycloak/data/h2:rw
+      - start-dev # Utilizar esse comando quando a aplicação estiver executando fora do Docker
+#      - start-dev --hostname-url=http://keycloak:8080 # Utilizar esse comando quando a aplicação estiver dentro do Docker
+    volumes:
+      - .docker/keycloak:/opt/keycloak/data/h2:rw
     networks:
       - adm_videos_network
 

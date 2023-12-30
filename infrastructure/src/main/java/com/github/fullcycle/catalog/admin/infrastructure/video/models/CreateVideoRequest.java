@@ -12,8 +12,8 @@ public record CreateVideoRequest(
         @JsonProperty("opened") Boolean opened,
         @JsonProperty("published") Boolean published,
         @JsonProperty("rating") String rating,
-        @JsonProperty("cast_members") Set<String> castMembers,
-        @JsonProperty("categories") Set<String> categories,
-        @JsonProperty("genres") Set<String> genres
+        @JsonProperty("cast_members_id") Set<String> castMembers,
+        @JsonProperty("categories_id") Set<String> categories,
+        @JsonProperty("genres_id") Set<String> genres
 ) {
 }
