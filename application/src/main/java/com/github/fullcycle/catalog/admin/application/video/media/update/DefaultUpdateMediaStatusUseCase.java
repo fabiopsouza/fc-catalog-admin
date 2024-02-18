@@ -18,7 +18,8 @@ public class DefaultUpdateMediaStatusUseCase extends UpdateMediaStatusUseCase {
 
     @Override
     public void execute(final UpdateMediaStatusCommand aCmd) {
-        final var anId = VideoID.from(aCmd.videoId());
+        // final var anId = VideoID.from(aCmd.videoId());
+        final var anId = VideoID.from(aCmd.resourceId()); // TODO test id
         final var aResourceId = aCmd.resourceId();
         final var folder = aCmd.folder();
         final var filename = aCmd.filename();

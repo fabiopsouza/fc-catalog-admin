@@ -33,7 +33,7 @@ public class VideoEncoderListener {
         final var aResult = Json.readValue(message, VideoEncoderResult.class);
 
         if (aResult instanceof VideoEncoderCompleted dto) {
-            log.error("[message:video.listener.income] [status:completed] [payload:{}]", message);
+            log.info("[message:video.listener.income] [status:completed] [payload:{}]", message);
             final var aCmd = new UpdateMediaStatusCommand(
                     MediaStatus.COMPLETED,
                     dto.id(),
